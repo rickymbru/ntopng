@@ -1,0 +1,40 @@
+version: '3'
+
+# networks:
+#   ntopng:
+#     driver: "bridge"
+
+services:
+
+  ntopng:
+    image: vimagick/ntopng
+    command: --community -d /var/lib/ntopng -i eth0 -i tcp://127.0.0.1:5557 -r 127.0.0.1:6379@0 -w 0.0.0.0:3000 --local-networks "10.10.0.0/23=LAN,10.130.10.0/24=LAN_PIRAI" 
+    volumes:
+      - ./data/ntopng:/var/lib/ntopng
+    network_mode: host
+    restart: unless-stopped
+    # networks:
+    #   - ntopng
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    command: --save 900 1
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    restart: unless-stopped
+    # networks:
+    #   - ntopng    
+  
+  nprobe:
+    image: xdrum/nprobe
+    command: --collector-port 2055 --zmq tcp://*:5557 -i none -n none
+    ports:
+      - "5557:5557"
+      - "2055:2055"
+    # networks:
+    #   - ntopng      
+
