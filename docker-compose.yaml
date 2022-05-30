@@ -18,7 +18,7 @@ services:
       - ./data/ntopng:/var/lib/ntopng
     #network_mode: host
     ports:
-      - "3001:3000"    
+      - "3000:3000"    
     restart: unless-stopped
     networks:
       - ntopng
@@ -36,9 +36,13 @@ services:
       - ntopng    
   
   nprobe:
-    container_name: nprobe2  
-    image: xdrum/nprobe
-    command: --collector-port 2055 --zmq tcp://*:5557 -i none -n none
+    container_name: nprobe
+    #image: xdrum/nprobe
+    image: rickymbru/nprobe
+    build:
+      context: ./docker/nprobe
+      dockerfile: Dockerfile       
+    command: --collector-port 2225 --zmq tcp://*:5557 -i none -n none
     ports:
       - "2055:2055"
     networks:
