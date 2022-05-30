@@ -16,7 +16,6 @@ services:
     command: ["/etc/ntopng/ntopng.conf"]
     volumes:
       - ./data/ntopng:/var/lib/ntopng
-    #network_mode: host
     ports:
       - "3000:3000"    
     restart: unless-stopped
@@ -36,8 +35,7 @@ services:
       - ntopng    
   
   nprobe:
-    container_name: nprobe
-    #image: xdrum/nprobe
+    container_name: nprobe-pirai
     image: rickymbru/nprobe
     build:
       context: ./docker/nprobe
