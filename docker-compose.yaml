@@ -34,7 +34,7 @@ services:
     networks:
       - ntopng    
   
-  nprobe:
+  nprobe-pirai:
     container_name: nprobe-pirai
     image: rickymbru/nprobe
     build:
@@ -44,5 +44,17 @@ services:
     ports:
       - "2055:2055"
     networks:
-      - ntopng      
+      - ntopng
+
+  nprobe-barra-pirai:
+    container_name: nprobe-barra-pirai
+    image: rickymbru/nprobe
+    build:
+      context: ./docker/nprobe
+      dockerfile: Dockerfile       
+    command: --collector-port 2230 --zmq tcp://*:5230 -i none -n none
+    ports:
+      - "2230:2230"
+    networks:
+      - ntopng   
 
