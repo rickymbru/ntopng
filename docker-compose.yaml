@@ -40,7 +40,7 @@ services:
     build:
       context: ./docker/nprobe
       dockerfile: Dockerfile       
-    command: --collector-port 2225 --zmq tcp://*:5557 -i none -n none
+    command: --collector-port 2055 --zmq tcp://*:5557 -i none -n none
     ports:
       - "2055:2055"
     networks:
