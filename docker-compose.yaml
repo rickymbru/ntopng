@@ -12,7 +12,6 @@ services:
     build:
       context: ./docker/ntopng
       dockerfile: Dockerfile    
-    #command: --community -d /var/lib/ntopng -i eth0 -i tcp://nprobe:5557 -r redis2 -w 0.0.0.0:3000 --local-networks "10.10.0.0/23=LAN,10.130.10.0/24=LAN_PIRAI"
     command: ["/etc/ntopng/ntopng.conf"]
     volumes:
       - ./data/ntopng:/var/lib/ntopng
@@ -42,7 +41,7 @@ services:
       dockerfile: Dockerfile       
     command: --collector-port 2055 --zmq tcp://*:5557 -i none -n none
     ports:
-      - "2055:2055"
+      - "2055:2055/udp"
     networks:
       - ntopng
 
@@ -54,7 +53,7 @@ services:
       dockerfile: Dockerfile       
     command: --collector-port 2230 --zmq tcp://*:5230 -i none -n none
     ports:
-      - "2230:2230"
+      - "2230:2230/udp"
     networks:
       - ntopng   
 
