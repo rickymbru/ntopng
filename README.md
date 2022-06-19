@@ -42,3 +42,7 @@ Observe também os nomes das imagens sendo usados ​​na compilação com o va
 `docker-compose up -d --build` Irá subir todos os serviçõs necessários. Voce poderá logar em **ntopng** na porta *3000*, utilzando o IP do seu HOST.
 
 Agora você deve poder visualizar o tráfego de qualquer dispositivo de rede enviando dados de fluxo para o IP do seu host em 2055/UDP.
+
+#### Fontes de pesquisa
+- https://github.com/x-drum/docker-nprobe
+- https://github.com/goatatwork/ntopng-nprobe-docker
