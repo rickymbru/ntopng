@@ -55,5 +55,28 @@ services:
     ports:
       - "2230:2230/udp"
     networks:
-      - ntopng   
+      - ntopng
+
+  nprobe-laranjal:
+    container_name: nprobe-laranjal
+    image: rickymbru/nprobe
+    build:
+      context: ./docker/nprobe
+      dockerfile: Dockerfile       
+    command: --collector-port 2044 --zmq tcp://*:5044 -i none -n none
+    ports:
+      - "2044:2044/udp"
+    networks:
+      - ntopng
+  nprobe-teresopolis:
+    container_name: nprobe-teresopolis
+    image: rickymbru/nprobe
+    build:
+      context: ./docker/nprobe
+      dockerfile: Dockerfile       
+    command: --collector-port 2131 --zmq tcp://*:5131 -i none -n none
+    ports:
+      - "2131:2131/udp"
+    networks:
+      - ntopng          
 
