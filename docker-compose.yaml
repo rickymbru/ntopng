@@ -78,5 +78,16 @@ services:
     ports:
       - "2131:2131/udp"
     networks:
-      - ntopng          
+      - ntopng
+  nprobe-macae:
+    container_name: nprobe-macae
+    image: rickymbru/nprobe
+    build:
+      context: ./docker/nprobe
+      dockerfile: Dockerfile       
+    command: --collector-port 2123 --zmq tcp://*:5123 -i none -n none
+    ports:
+      - "2123:2123/udp"
+    networks:
+      - ntopng                 
 
